@@ -174,6 +174,7 @@ export default function DashboardPage() {
               {[
                 { href: "/deals/create", label: "Create New Deal", icon: "+" },
                 { href: "/deals/ai-builder", label: "AI Deal Builder", icon: "✦" },
+                { href: "/pricing", label: "View Pricing", icon: "$" },
                 { href: "/verification", label: "Verification Center", icon: "✓" },
                 { href: `/deals/${activeDeal?.id}/safety-score`, label: "Deal Safety Score", icon: "◎" },
                 { href: "/disputes", label: "Dispute Center", icon: "⚖" },

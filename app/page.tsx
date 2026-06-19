@@ -213,20 +213,93 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* Pricing */}
+      <section className="py-20 px-8 max-w-5xl mx-auto">
+        <h2 className="text-3xl font-bold text-center mb-3" style={{ color: "var(--dl-text)" }}>
+          Free to create. Pay only when you protect a deal.
+        </h2>
+        <p className="text-center mb-3" style={{ color: "var(--dl-muted-light)" }}>
+          Your account is always free. One flat fee per protected deal — no subscriptions.
+        </p>
+        <p className="text-center text-xs mb-10" style={{ color: "var(--dl-muted)" }}>
+          DealLock platform fees are separate from third-party payment provider fees.
+        </p>
+
+        {/* Tier summary row */}
+        <div className="grid grid-cols-4 gap-4 mb-8">
+          {[
+            { name: "Standard", price: "$2.99", range: "Up to $1,001", highlight: false },
+            { name: "Plus", price: "$4.99", range: "Up to $2,500", highlight: true },
+            { name: "Secure Max", price: "$9.99", range: "Up to $5,000", highlight: false },
+            { name: "Manual Review", price: "Custom", range: "Over $5,000", highlight: false },
+          ].map((t) => (
+            <div
+              key={t.name}
+              className="p-5 rounded-xl text-center"
+              style={{
+                background: t.highlight ? "rgba(201,168,76,0.07)" : "var(--dl-card)",
+                border: `1px solid ${t.highlight ? "var(--dl-gold)" : "var(--dl-border)"}`,
+              }}
+            >
+              {t.highlight && (
+                <div
+                  className="text-xs font-semibold mb-2"
+                  style={{ color: "var(--dl-gold)" }}
+                >
+                  Recommended
+                </div>
+              )}
+              <div
+                className="text-2xl font-bold mb-1"
+                style={{ color: t.highlight ? "var(--dl-gold)" : "var(--dl-text)" }}
+              >
+                {t.price}
+              </div>
+              <div className="text-sm font-medium mb-1" style={{ color: "var(--dl-text)" }}>
+                {t.name}
+              </div>
+              <div className="text-xs" style={{ color: "var(--dl-muted)" }}>
+                {t.range}
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="text-center">
+          <Link
+            href="/pricing"
+            className="inline-block px-6 py-2.5 rounded-lg text-sm font-semibold"
+            style={{
+              background: "var(--dl-card)",
+              color: "var(--dl-text)",
+              border: "1px solid var(--dl-border)",
+            }}
+          >
+            See full pricing details →
+          </Link>
+        </div>
+      </section>
+
       {/* CTA */}
-      <section className="py-24 px-8 text-center">
+      <section
+        className="py-24 px-8 text-center"
+        style={{ borderTop: "1px solid var(--dl-border)", background: "var(--dl-surface)" }}
+      >
         <h2 className="text-3xl font-bold mb-4" style={{ color: "var(--dl-text)" }}>
           Ready to lock your next deal?
         </h2>
-        <p className="mb-8" style={{ color: "var(--dl-muted-light)" }}>
+        <p className="mb-2" style={{ color: "var(--dl-muted-light)" }}>
           Start with our AI Deal Builder — generate structured terms in minutes.
+        </p>
+        <p className="text-sm mb-8" style={{ color: "var(--dl-muted)" }}>
+          Free to create. Pay only when you protect a deal.
         </p>
         <Link
           href="/deals/create"
           className="inline-block px-10 py-4 rounded-lg text-base font-semibold transition-opacity hover:opacity-90"
           style={{ background: "var(--dl-gold)", color: "#080c1a" }}
         >
-          Create Your First Deal
+          Create Your First Deal — Free
         </Link>
       </section>
 

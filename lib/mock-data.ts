@@ -1,3 +1,123 @@
+// ─── Pricing ────────────────────────────────────────────────────────────────
+
+export interface PricingTier {
+  id: string;
+  name: string;
+  label: string;
+  platformFee: number | "custom";
+  maxAmount: number | null;
+  minAmount: number;
+  features: string[];
+  highlighted?: boolean;
+}
+
+export const PRICING_TIERS: PricingTier[] = [
+  {
+    id: "starter",
+    name: "Starter Account",
+    label: "Free",
+    platformFee: 0,
+    maxAmount: null,
+    minAmount: 0,
+    features: [
+      "Create secure deal drafts",
+      "Send secure deal links",
+      "Invite the other party",
+      "Preview deal terms",
+      "Preview protection fees",
+    ],
+  },
+  {
+    id: "standard",
+    name: "Standard Protected Deal",
+    label: "$2.99 per deal",
+    platformFee: 2.99,
+    maxAmount: 1001,
+    minAmount: 0,
+    features: [
+      "Secure deal link",
+      "Written agreement record",
+      "Protected payment workflow",
+      "Evidence timeline",
+      "Proof upload",
+      "Approve or dispute flow",
+    ],
+  },
+  {
+    id: "plus",
+    name: "Plus Protected Deal",
+    label: "$4.99 per deal",
+    platformFee: 4.99,
+    maxAmount: 2500,
+    minAmount: 1001.01,
+    highlighted: true,
+    features: [
+      "Everything in Standard",
+      "Higher deal limit (up to $2,500)",
+      "Stronger safety review",
+      "Evidence packet included",
+      "Recommended verification",
+    ],
+  },
+  {
+    id: "secure_max",
+    name: "Secure Max Protected Deal",
+    label: "$9.99 per deal",
+    platformFee: 9.99,
+    maxAmount: 5000,
+    minAmount: 2500.01,
+    features: [
+      "Everything in Plus",
+      "Highest standard deal limit (up to $5,000)",
+      "Enhanced verification prompts",
+      "Priority dispute packet",
+      "Manual review triggers for risk factors",
+    ],
+  },
+  {
+    id: "manual",
+    name: "Manual Review",
+    label: "Custom",
+    platformFee: "custom",
+    maxAmount: null,
+    minAmount: 5000.01,
+    features: [
+      "Verified or business users only",
+      "Manual compliance review",
+      "Custom approval process",
+      "Provider eligibility required",
+    ],
+  },
+];
+
+export function getPlatformFee(amount: number): number | "custom" {
+  if (amount <= 1001) return 2.99;
+  if (amount <= 2500) return 4.99;
+  if (amount <= 5000) return 9.99;
+  return "custom";
+}
+
+export function getPricingTier(amount: number): PricingTier {
+  if (amount <= 1001) return PRICING_TIERS[1];
+  if (amount <= 2500) return PRICING_TIERS[2];
+  if (amount <= 5000) return PRICING_TIERS[3];
+  return PRICING_TIERS[4];
+}
+
+export const PROVIDER_FEES: Record<string, { label: string; rate: number; flat: number }> = {
+  bank: { label: "Bank Transfer (ACH / Wire)", rate: 0.0025, flat: 0 },
+  card: { label: "Credit / Debit Card", rate: 0.029, flat: 0.30 },
+  escrow: { label: "Certified Escrow Partner", rate: 0.01, flat: 0 },
+};
+
+export function estimateProviderFee(amount: number, methodId: string): number {
+  const m = PROVIDER_FEES[methodId];
+  if (!m) return 0;
+  return amount * m.rate + m.flat;
+}
+
+// ─── Deals ───────────────────────────────────────────────────────────────────
+
 export type DealStatus =
   | "draft"
   | "pending_terms"

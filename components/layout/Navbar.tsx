@@ -33,6 +33,7 @@ export default function Navbar() {
         <nav className="flex items-center gap-1">
           {[
             { href: "/dashboard", label: "Dashboard" },
+            { href: "/pricing", label: "Pricing" },
             { href: "/disputes", label: "Disputes" },
             { href: "/verification", label: "Verify" },
             { href: "/admin", label: "Admin" },
